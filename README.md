@@ -108,18 +108,33 @@ controls engineers, industrial robots.
 
 ## Wiring up the "Request Candidates" form
 
-The contact form (`contact.html`) currently shows a **client-side confirmation
-only** — submissions are not yet sent anywhere. To receive real submissions,
-pick one:
+The contact form (`contact.html`) is **already wired to submit via Formspree** —
+you just need to give it your form ID. It submits over `fetch`, so the visitor
+stays on the page and sees an inline confirmation. Until a real ID is set, the
+form stays in safe **demo mode** (shows the confirmation without sending), so it
+never looks broken.
 
-- **Easiest (no code):** use a form-backend service (Formspree, Basin, Netlify
-  Forms, etc.). Add their `action="…"` and `method="post"` to the `<form>` in
-  the `contactPage()` function of `scripts/build.mjs`, remove the `data-demo`
-  attribute, and rebuild.
-- **Netlify Forms:** add `netlify` and `name="request-candidates"` attributes to
-  the form, remove `data-demo`, rebuild, and deploy to Netlify.
-- **Your own endpoint / ATS:** set the form `action` to your API and adapt
-  `assets/js/main.js` if you want AJAX submission.
+**To go live (about 2 minutes):**
+
+1. Create a free form at [formspree.io](https://formspree.io) and point it at
+   `recruiting@eautomatedstaffing.com` (or whichever inbox should receive
+   hiring inquiries).
+2. Copy the form ID Formspree gives you (it looks like `https://formspree.io/f/abcdwxyz`).
+3. In `scripts/build.mjs`, set `FORM.endpoint` to that URL.
+4. Run `node scripts/build.mjs` and deploy.
+
+That's it — submissions then arrive in your inbox and Formspree dashboard. The
+form includes a hidden honeypot field for basic spam protection and a friendly
+error message (with phone/email fallback) if a submission ever fails.
+
+**Prefer a different backend?**
+
+- **Netlify Forms:** if you deploy to Netlify, add `netlify` and
+  `name="request-candidates"` attributes to the `<form>` in `contactPage()`,
+  set `FORM.endpoint` to a non-placeholder value, and rebuild.
+- **Your own endpoint / ATS:** point `FORM.endpoint` at your API. The
+  `fetch`-based handler in `assets/js/main.js` posts the form as `FormData` with
+  an `Accept: application/json` header and treats any `2xx` as success.
 
 ---
 

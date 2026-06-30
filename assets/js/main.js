@@ -41,26 +41,71 @@
     revealEls.forEach(function (el) { el.classList.add("in"); });
   }
 
-  /* ---- Forms: client-side confirmation --------------------------------
-     There is no backend wired up yet. On submit we show a success message
-     so the page feels complete. Replace the handler (or the form action)
-     with your real endpoint — see README.md. */
-  document.querySelectorAll("form[data-demo]").forEach(function (form) {
+  /* ---- Forms ----------------------------------------------------------
+     The form posts to its `action` (Formspree by default) via fetch, so the
+     visitor stays on the page. Until a real endpoint is configured in
+     scripts/build.mjs the action still contains "your-form-id"; in that case
+     we skip the network call and just show the confirmation, so the form is
+     never broken during setup. See README.md. */
+  function showSuccess(form) {
+    var success = form.querySelector(".form-success");
+    var fields = form.querySelector(".form__fields");
+    var error = form.querySelector(".form-error");
+    if (error) error.classList.remove("show");
+    if (fields) fields.style.display = "none";
+    if (success) {
+      success.classList.add("show");
+      success.setAttribute("role", "status");
+      success.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+  function showError(form) {
+    var error = form.querySelector(".form-error");
+    if (error) {
+      error.classList.add("show");
+      error.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }
+
+  document.querySelectorAll("form[data-form]").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
-      var success = form.querySelector(".form-success");
-      var fields = form.querySelector(".form__fields");
-      if (success) {
-        if (fields) fields.style.display = "none";
-        success.classList.add("show");
-        success.setAttribute("role", "status");
-        success.scrollIntoView({ behavior: "smooth", block: "center" });
+      var action = form.getAttribute("action") || "";
+      var configured = action && action.indexOf("your-form-id") === -1;
+
+      // Endpoint not configured yet → friendly demo confirmation.
+      if (!configured) {
+        showSuccess(form);
+        form.reset();
+        return;
       }
-      form.reset();
+
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) submitBtn.setAttribute("aria-busy", "true");
+
+      fetch(action, {
+        method: form.getAttribute("method") || "post",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      })
+        .then(function (res) {
+          if (res.ok) {
+            showSuccess(form);
+            form.reset();
+          } else {
+            showError(form);
+          }
+        })
+        .catch(function () {
+          showError(form);
+        })
+        .finally(function () {
+          if (submitBtn) submitBtn.removeAttribute("aria-busy");
+        });
     });
   });
 

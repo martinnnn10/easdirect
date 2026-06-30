@@ -27,6 +27,19 @@ const SITE = {
   region: "Nationwide · United States & Canada",
 };
 
+/* Contact form delivery.
+   The "Request Candidates" form posts to Formspree (works on any static host).
+   1. Create a free form at https://formspree.io and point it at the inbox in
+      SITE.email above.
+   2. Replace `your-form-id` below with the ID Formspree gives you.
+   3. Run `node scripts/build.mjs` and deploy.
+   Until a real ID is set, the form stays in safe "demo" mode and just shows the
+   on-page confirmation — it never looks broken. See README.md. */
+const FORM = {
+  // e.g. "https://formspree.io/f/abcdwxyz"
+  endpoint: "https://formspree.io/f/your-form-id",
+};
+
 /* Curated Unsplash CDN photos (industrial / manufacturing).
    These load directly in the visitor's browser. Swap any `src` for your own
    photo URL or a local file in assets/img/ when you have your own photography. */
@@ -172,6 +185,160 @@ const ARTICLES = [
   { slug: "direct-hire-vs-staffing-agency", cat: "Market Insight", title: "Direct Hire vs. a Generic Staffing Agency for Manufacturing Roles",
     excerpt: "Why specialist direct-hire search outperforms volume staffing for hard-to-fill maintenance, controls and engineering seats." },
 ];
+
+/* Full article bodies, keyed by slug. Written in the EAS voice — expand or edit
+   freely. Uses the .prose styles (p / h3 / ul / li). */
+const ARTICLE_CONTENT = {
+  "how-to-hire-maintenance-technicians": `
+    <h3>Why the req sits open for months</h3>
+    <p>When a maintenance technician requisition goes unfilled for 90, 120, 180 days, the instinct is to blame the market. The market is tight &mdash; but that&rsquo;s rarely the whole story. In our experience running these searches, reqs stall for reasons that are entirely fixable:</p>
+    <ul>
+      <li>The job posting reads like an HR template, not something a technician would answer.</li>
+      <li>The search is limited to people who are actively applying &mdash; the smallest, least selective slice of the talent pool.</li>
+      <li>The interview process is too slow, and good candidates take another offer before yours lands.</li>
+      <li>The pay band is anchored to last year&rsquo;s market instead of this week&rsquo;s.</li>
+    </ul>
+    <h3>Write a posting that speaks to technicians</h3>
+    <p>A skilled multi-craft technician reads twenty postings that all say &ldquo;troubleshoot and repair equipment.&rdquo; Give them something concrete. Name the equipment and the controls platform &mdash; Allen-Bradley, Siemens, the specific lines they&rsquo;d own. State the shift plainly. Be honest about overtime and on-call. Technicians screen out vague postings because vague postings usually hide a rough environment.</p>
+    <h3>Go after the people who aren&rsquo;t looking</h3>
+    <p>The best technicians are employed and not browsing job boards. They get recruited, not advertised to. Filling these roles consistently means building a network of passive candidates and reaching out directly &mdash; through referrals, trade communities, and recruiters who already know who the strong people are in your region. If your entire pipeline is inbound applications, you are competing for the 20% of the market that is actively job-hunting, and the strongest hands are almost never in that group.</p>
+    <h3>Screen for the work, not the r&eacute;sum&eacute;</h3>
+    <p>A r&eacute;sum&eacute; tells you where someone worked, not whether they can find an intermittent fault on a line that&rsquo;s down. Put a real scenario in front of them: a conveyor trips its VFD twice a shift at random &mdash; walk me through how you&rsquo;d isolate it. Listen for a methodical approach, safe practice, and the instinct to look at the data before swapping parts. That five-minute conversation tells you more than the whole r&eacute;sum&eacute;.</p>
+    <h3>Move fast and make the offer easy to say yes to</h3>
+    <p>In a tight market, speed is a feature. Compress the loop: a technical phone screen, one well-run on-site, and a decision. Every extra week is a week a competitor can close them first. When you do extend the offer, anticipate the counter from their current employer and be ready &mdash; the resignation conversation is where placements are won or lost.</p>
+    <h3>Onboard so they stay</h3>
+    <p>Hiring is only half the job; retention is the other half. Technicians leave in the first 90 days when the role isn&rsquo;t what was described, the tooling is inadequate, or no one set them up to win. Be straight about the environment in the interview, and invest in the first month. A hire that washes out at day 80 costs you the search all over again.</p>
+    <h3>The EAS takeaway</h3>
+    <p>Maintenance reqs don&rsquo;t stay open because good technicians don&rsquo;t exist &mdash; they stay open because the search isn&rsquo;t reaching them, screening them properly, or closing them fast. Fix those three things and the role fills. That&rsquo;s exactly the search we run, and because we&rsquo;ve done the job ourselves, we know which technicians can actually do it.</p>`,
+
+  "why-plc-technicians-are-hard-to-find": `
+    <h3>A small pool, getting smaller</h3>
+    <p>There were never very many people who can stand at a panel, go online with a controller, and methodically find the fault. The role sits at the intersection of electrical skill, controls knowledge, and hands-on troubleshooting instinct &mdash; and that combination is rare by nature. Now demand for automation is rising while the supply of people who grew up with it is shrinking.</p>
+    <h3>The retirement cliff is real</h3>
+    <p>A large share of the technicians who learned PLCs in the &lsquo;80s and &lsquo;90s are retiring. They carry decades of plant-specific knowledge that doesn&rsquo;t transfer in a two-week handoff. As they leave, plants lose not just headcount but institutional troubleshooting memory &mdash; and the people qualified to replace them are already employed elsewhere.</p>
+    <h3>&ldquo;Talks about PLCs&rdquo; vs. &ldquo;can diagnose one&rdquo;</h3>
+    <p>This is the gap that costs companies the most. Plenty of candidates can discuss ladder logic, list the platforms they&rsquo;ve seen, and use the right vocabulary in an interview. Far fewer can actually go online with a running controller, read the logic, and isolate why the line stopped. A r&eacute;sum&eacute; and a smooth interview can&rsquo;t tell these two apart. Only a technical screen can &mdash; and most hiring teams aren&rsquo;t equipped to run one.</p>
+    <h3>Why job boards fail for this role</h3>
+    <p>The strongest controls people are not on job boards. They&rsquo;re busy, well-paid, and quietly indispensable to their current employer. Posting and praying reaches the wrong end of the market. Worse, a generic posting attracts a flood of unqualified applicants who use the right keywords, burning your team&rsquo;s time on screening that goes nowhere.</p>
+    <h3>How to actually compete</h3>
+    <ul>
+      <li><strong>Recruit passively.</strong> Reach the people who aren&rsquo;t applying, through network and direct outreach.</li>
+      <li><strong>Screen technically.</strong> Have someone who understands controls run the evaluation &mdash; real scenarios, not keyword bingo.</li>
+      <li><strong>Pay for scarcity.</strong> The market clears at a number; pretending otherwise just keeps the seat empty.</li>
+      <li><strong>Sell the work.</strong> Good controls people want interesting systems, modern equipment, and respect. Lead with that.</li>
+      <li><strong>Develop a pipeline.</strong> Grow your own through apprenticeship while you recruit externally &mdash; the shortage isn&rsquo;t ending soon.</li>
+    </ul>
+    <h3>The EAS takeaway</h3>
+    <p>Good PLC technicians are hard to find because they&rsquo;re rare, retiring, and rarely looking &mdash; and because most searches can&rsquo;t tell the real ones from the fluent ones. We can, because we&rsquo;ve been on the wrong end of a downed line at 2 a.m. ourselves. When we present a controls candidate, it&rsquo;s because they passed a screen built by people who&rsquo;ve done the work.</p>`,
+
+  "maintenance-manager-interview-questions": `
+    <p>A maintenance manager sets the reliability of your whole plant. Hire the wrong one and you get reactive firefighting, turnover, and rising downtime. The right questions separate managers who genuinely manage from supervisors who merely react. Here are twenty we like, grouped by what they reveal.</p>
+    <h3>Technical &amp; reliability</h3>
+    <ul>
+      <li>Walk me through how you&rsquo;d stand up a PM program from scratch on a line with no history.</li>
+      <li>How do you decide what to make preventive, predictive, or run-to-failure?</li>
+      <li>What CMMS have you run, and what did you actually change with the data?</li>
+      <li>Tell me about a chronic failure you eliminated &mdash; how did you find root cause?</li>
+      <li>How do you measure reliability? Which metrics do you trust and which mislead?</li>
+      <li>How do you handle a controls or automation problem that&rsquo;s beyond your team&rsquo;s depth?</li>
+    </ul>
+    <h3>Leadership &amp; people</h3>
+    <ul>
+      <li>How do you build a maintenance team when skilled techs are scarce?</li>
+      <li>Describe coaching a technician who was technically strong but unreliable.</li>
+      <li>How do you handle the night shift when you can&rsquo;t be there?</li>
+      <li>What&rsquo;s your approach to cross-training and reducing single points of failure?</li>
+      <li>Tell me about a time you had to let someone go &mdash; how did you handle it?</li>
+    </ul>
+    <h3>Business &amp; metrics</h3>
+    <ul>
+      <li>How do you build and defend a maintenance budget?</li>
+      <li>Walk me through a capital request you justified to leadership.</li>
+      <li>How do you balance production pressure against doing maintenance right?</li>
+      <li>What&rsquo;s the relationship between your department and operations &mdash; partners or adversaries?</li>
+    </ul>
+    <h3>Behavioral &amp; situational</h3>
+    <ul>
+      <li>Tell me about your worst downtime event. What happened and what changed afterward?</li>
+      <li>Describe a time you disagreed with the plant manager. How did it resolve?</li>
+      <li>What did you inherit in your last role, and what did it look like when you left?</li>
+      <li>How do you keep up with new technology &mdash; controls, predictive tools, IIoT?</li>
+      <li>Why this plant, and why now?</li>
+    </ul>
+    <h3>How to read the answers</h3>
+    <p>Strong candidates talk in specifics &mdash; numbers, named systems, before-and-after. They take ownership of failures and describe what they changed. Weaker candidates stay abstract, blame others, or describe being busy rather than driving outcomes. Listen for whether they led change or simply kept the lights on.</p>
+    <h3>The EAS takeaway</h3>
+    <p>The r&eacute;sum&eacute; gets a candidate in the room; questions like these tell you who they actually are. We ask them on every maintenance-leadership search &mdash; and because we&rsquo;ve run maintenance departments, we know which answers hold up on the floor and which fall apart in week one.</p>`,
+
+  "red-flags-hiring-controls-engineers": `
+    <p>A controls engineer can make or break an automation project &mdash; and the cost of the wrong hire isn&rsquo;t felt at the offer stage. It shows up three months in, on a struggling commissioning, with a line that won&rsquo;t run right. Here are the warning signs we screen for.</p>
+    <h3>Buzzword fluency with no depth underneath</h3>
+    <p>The candidate uses all the right terms &mdash; ladder, function block, EtherNet/IP, SCADA &mdash; but can&rsquo;t go one layer deeper when you probe. Ask <em>how</em> and <em>why</em>, not <em>what</em>. Real engineers get more specific under questioning; the fluent-but-shallow get vaguer.</p>
+    <h3>Can&rsquo;t describe past projects concretely</h3>
+    <p>&ldquo;I worked on the line controls&rdquo; isn&rsquo;t an answer. What was the architecture? What did <em>you</em> design versus inherit? What broke during commissioning and how did you fix it? Engineers who did the work remember the hard parts in detail. Vague ownership is a red flag.</p>
+    <h3>No troubleshooting methodology</h3>
+    <p>Ask how they approach a fault no one&rsquo;s seen before. You want a process: reproduce, observe the data, isolate, hypothesize, test. Beware the answer that jumps straight to swapping hardware or &ldquo;calling the vendor.&rdquo; Strong controls people think before they touch.</p>
+    <h3>Can&rsquo;t read someone else&rsquo;s code</h3>
+    <p>Most real work is modifying logic written by someone who&rsquo;s gone. An engineer who can only work in their own style, or who wants to rewrite everything from scratch, will be slow and risky in a brownfield plant. Ask how they approach undocumented logic they didn&rsquo;t write.</p>
+    <h3>Over-reliance on vendor support</h3>
+    <p>Vendor support is a tool, not a crutch. If every hard problem in their stories ends with &ldquo;so we opened a ticket,&rdquo; you&rsquo;re hiring a coordinator, not an engineer. You want someone who exhausts their own diagnosis first.</p>
+    <h3>Job-hopping vs. project-based moves</h3>
+    <p>Integrators and contractors move between projects &mdash; that&rsquo;s normal and not a red flag. But a pattern of leaving direct roles every 12 months, especially right after commissioning, can signal someone who designs systems they don&rsquo;t stay to support. Ask why each move happened.</p>
+    <h3>Green flags, for contrast</h3>
+    <ul>
+      <li>Gets more specific the deeper you probe.</li>
+      <li>Owns past mistakes and explains what they learned.</li>
+      <li>Has a repeatable troubleshooting method.</li>
+      <li>Comfortable in others&rsquo; code and in legacy environments.</li>
+      <li>Talks about uptime and the operators, not just the technology.</li>
+    </ul>
+    <h3>The EAS takeaway</h3>
+    <p>You usually can&rsquo;t spot these red flags from a r&eacute;sum&eacute;, and many hiring teams can&rsquo;t spot them in an interview either &mdash; the vocabulary is convincing. We screen controls engineers technically, by people who&rsquo;ve commissioned lines and chased the intermittent fault, so the problems surface before the offer, not after.</p>`,
+
+  "what-makes-a-great-maintenance-supervisor": `
+    <h3>The bridge role</h3>
+    <p>The maintenance supervisor stands between the floor and the front office. They translate production pressure into technical priorities and technical reality back up to leadership. Get this role right and downtime drops, technicians stay, and problems get solved before they spread. Get it wrong and the whole department runs reactive.</p>
+    <h3>Technical credibility comes first</h3>
+    <p>A supervisor who can&rsquo;t earn the respect of their technicians will struggle no matter how good their people skills are. The best supervisors came up through the trades &mdash; they&rsquo;ve turned the wrench, found the fault, and done the dirty work. That credibility is what lets them make a call on the floor and have it stick.</p>
+    <h3>Leadership the floor will follow</h3>
+    <p>Technical chops alone aren&rsquo;t enough; plenty of great technicians make poor supervisors. The role demands the ability to prioritize under pressure, coach without micromanaging, hold people accountable fairly, and stay calm when a line is down and everyone is looking at them. Look for someone who develops their people instead of hoarding the hard jobs.</p>
+    <h3>Proactive, not just reactive</h3>
+    <p>A reactive supervisor fights whatever fire is loudest. A great one is always pulling the department toward prevention &mdash; tightening the PM program, chasing repeat failures to root cause, planning work so the next shift isn&rsquo;t scrambling. The difference shows up in the trend line on unplanned downtime over six months.</p>
+    <h3>Communicates in both directions</h3>
+    <p>They can explain to a plant manager, in business terms, why a line needs to come down for four hours now to avoid a two-day failure later &mdash; and they can take a vague production complaint and turn it into a clear work order for a technician. That two-way translation is the heart of the job.</p>
+    <h3>How to interview for it</h3>
+    <ul>
+      <li>Ask about a time they turned around a struggling shift or crew.</li>
+      <li>Probe how they prioritize when three things break at once.</li>
+      <li>Ask how they coach a strong but difficult technician.</li>
+      <li>Have them explain a technical decision to you as if you were the plant manager.</li>
+      <li>Look for ownership of outcomes &mdash; downtime, PM compliance, retention &mdash; not just activity.</li>
+    </ul>
+    <h3>The EAS takeaway</h3>
+    <p>A great maintenance supervisor is rarer than a great technician, because the job needs both the hands and the head for leadership. We&rsquo;ve held the role and built the teams beneath it, so we screen for the combination that actually predicts success &mdash; not just the strongest wrench in the room.</p>`,
+
+  "direct-hire-vs-staffing-agency": `
+    <h3>Two different models, often confused</h3>
+    <p>&ldquo;Staffing&rdquo; and &ldquo;direct hire&rdquo; get used interchangeably, but they solve different problems. A volume staffing agency fills seats &mdash; often temporary or temp-to-hire &mdash; quickly and at scale. Direct-hire search finds a specific permanent employee for a hard-to-fill role. For maintenance, controls, and engineering, the difference is everything.</p>
+    <h3>When volume staffing is the right tool</h3>
+    <p>Staffing agencies are genuinely good at what they do: high-volume, lower-specialization roles where speed and flexibility matter more than precise fit &mdash; general labor, packaging line operators, warehouse, seasonal surges. If you need fifteen bodies for a ramp, that&rsquo;s a staffing problem.</p>
+    <h3>Why hard technical roles need search</h3>
+    <p>A maintenance technician who can troubleshoot your controls, or a controls engineer who can commission a line, is not a body you can swap in. These people are scarce, employed, and not applying. Finding them takes targeted recruiting into the passive market and a technical screen to confirm they can actually do the work. Volume staffing models aren&rsquo;t built for that &mdash; they&rsquo;re built for throughput, and they&rsquo;ll send you r&eacute;sum&eacute;s, not vetted technicians.</p>
+    <h3>The hidden cost of the wrong fit</h3>
+    <p>A bad temp on a packaging line is an inconvenience. A bad controls hire is a failed commissioning, a project that slips a quarter, and a line that won&rsquo;t run right. The cost of a mis-hire in a technical seat &mdash; lost productivity, the re-search, the team disruption &mdash; dwarfs any fee difference. Specialization isn&rsquo;t a premium; it&rsquo;s insurance.</p>
+    <h3>Why specialists rank &mdash; and deliver</h3>
+    <p>A firm that does only manufacturing, only direct hire, builds a network, a reputation, and a screening capability that a generalist can&rsquo;t match. They already know the strong people in your region. They speak the language that gets a passive candidate to pick up the phone. And they can tell, technically, who can do the job. That focus is why specialist search consistently outperforms general staffing on the hardest seats &mdash; and why specialist pages outrank generic ones when those same companies search for help.</p>
+    <h3>What to look for in a search partner</h3>
+    <ul>
+      <li>Do they specialize in your kind of role, or do they do everything?</li>
+      <li>Can they screen candidates technically &mdash; or just forward r&eacute;sum&eacute;s?</li>
+      <li>Do they reach passive candidates, or only post and wait?</li>
+      <li>Do they guarantee placements?</li>
+      <li>Have the people running your search ever done the job they&rsquo;re recruiting for?</li>
+    </ul>
+    <h3>The EAS takeaway</h3>
+    <p>For the maintenance, controls, automation, and leadership roles that keep a plant running, direct-hire search beats volume staffing &mdash; and a manufacturing specialist beats a generalist. EAS is direct hire only, manufacturing only, run by former maintenance and automation leaders. That focus is the entire point.</p>`,
+};
 
 /* ---------------------------------------------------------------------------
    Layout helpers
@@ -993,6 +1160,7 @@ function articlePage(art, idx) {
     .join("\n        ");
 
   const intro = art.excerpt;
+  const content = ARTICLE_CONTENT[art.slug] || `<p>${intro}</p>`;
   const body = `<section class="hero">
     <div class="hero__bg"><img src="${IMG.factoryFloor}" alt="" aria-hidden="true" /></div>
     <div class="hero__overlay"></div>
@@ -1010,16 +1178,7 @@ function articlePage(art, idx) {
       <div style="max-width:70ch;margin-inline:auto" class="prose reveal">
         <p class="lead">${intro}</p>
         <hr class="divider" />
-        <p>This article is a starting outline that the EAS team can expand with first-hand expertise. Use it as the editorial skeleton &mdash; drop in real stories from the floor, the specific PLC platforms and reliability methods you work with, and the screening questions you actually ask.</p>
-        <h3>Why this matters for manufacturers</h3>
-        <p>The roles EAS recruits don&rsquo;t fail because of a lack of resumes &mdash; they fail because of a lack of technical judgment in screening. Articles like this exist to demonstrate that judgment, build search authority, and rank for the questions plant leaders are actually typing into Google.</p>
-        <ul>
-          <li>Lead with experience: what we&rsquo;ve seen on the floor, not generic advice.</li>
-          <li>Be specific: name the platforms, the failure modes, the interview questions.</li>
-          <li>Tie it back to outcomes: downtime, retention, time-to-fill.</li>
-        </ul>
-        <h3>The EAS takeaway</h3>
-        <p>Hiring technical manufacturing talent is a craft. Whether you&rsquo;re hiring or being hired, working with a recruiter who has done the job changes the outcome. That&rsquo;s the whole reason EAS exists.</p>
+        ${content}
         <p style="margin-top:1.6rem"><a class="btn btn--primary" href="contact.html">Talk to a recruiter who&rsquo;s done the job ${I.arrow}</a></p>
       </div>
     </div>
@@ -1072,8 +1231,11 @@ function contactPage() {
     <div class="container">
       <div class="split">
         <div class="reveal">
-          <form class="form" data-demo novalidate aria-label="Request candidates">
+          <form class="form" data-form action="${FORM.endpoint}" method="post" novalidate aria-label="Request candidates">
+            <input type="hidden" name="_subject" value="New candidate request from eautomatedstaffing.com" />
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
             <div class="form-success">Thank you &mdash; your request has been received. A recruiter who has done the job will be in touch shortly.</div>
+            <div class="form-error" role="alert">Something went wrong sending your request. Please email <a href="mailto:${SITE.email}">${SITE.email}</a> or call <a href="${SITE.phoneHref}">${SITE.phone}</a>.</div>
             <div class="form__fields">
               <div class="form__row">
                 <div class="field"><label for="name">Your name</label><input id="name" name="name" required autocomplete="name" /></div>
@@ -1089,7 +1251,7 @@ function contactPage() {
               </div>
               <div class="field"><label for="details">Tell us about the role</label><textarea id="details" name="details" placeholder="Location, shift, equipment / PLC platforms, must-have skills, target start date&hellip;"></textarea></div>
               <button class="btn btn--primary btn--lg btn--block" type="submit">Request Candidates ${I.arrow}</button>
-              <p class="form__note">By submitting you agree to be contacted about your hiring needs. This demo form shows a confirmation in the browser &mdash; connect it to your inbox or ATS to receive submissions (see README).</p>
+              <p class="form__note">By submitting you agree to be contacted about your hiring needs. Submissions are delivered to ${SITE.email} once the form endpoint is configured (see README).</p>
             </div>
           </form>
         </div>
