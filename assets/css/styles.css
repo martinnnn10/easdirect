@@ -20,12 +20,12 @@
   --paper: #f4f6f6;
   --white: #ffffff;
 
-  /* EAS green accent (from the logo) */
-  --amber-500: #4aa32c;
-  --amber-400: #6bc247;
-  --amber-600: #2f7d18;
-  --amber-soft: rgba(74, 163, 44, 0.13);
-  --green-btn: #35801d;
+  /* EAS green accent — sampled directly from the logo */
+  --amber-500: #41903a;
+  --amber-400: #62bd49;
+  --amber-600: #216b2a;
+  --amber-soft: rgba(65, 144, 58, 0.13);
+  --green-btn: #216b2a;
 
   /* Text */
   --ink: #14181a;
@@ -134,8 +134,8 @@ p { color: var(--ink-soft); }
 }
 .btn svg { width: 18px; height: 18px; }
 .btn:hover { transform: translateY(-2px); }
-.btn--primary { background: var(--green-btn); color: #ffffff; box-shadow: 0 8px 22px rgba(47, 125, 24, 0.35); }
-.btn--primary:hover { background: var(--amber-500); box-shadow: 0 12px 30px rgba(47, 125, 24, 0.45); }
+.btn--primary { background: var(--green-btn); color: #ffffff; box-shadow: 0 8px 22px rgba(33, 107, 42, 0.35); }
+.btn--primary:hover { background: var(--amber-500); box-shadow: 0 12px 30px rgba(33, 107, 42, 0.45); }
 .btn--ghost { background: transparent; color: var(--on-dark); border-color: rgba(255,255,255,0.35); }
 .btn--ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
 .btn--dark { background: var(--navy-800); color: var(--white); }
@@ -203,7 +203,7 @@ p { color: var(--ink-soft); }
   position: absolute; inset: 0; z-index: -1;
   background:
     linear-gradient(115deg, rgba(10,12,13,0.96) 30%, rgba(10,12,13,0.74) 62%, rgba(18,21,23,0.55) 100%),
-    radial-gradient(120% 80% at 90% 10%, rgba(74,163,44,0.20), transparent 55%);
+    radial-gradient(120% 80% at 90% 10%, rgba(65,144,58,0.20), transparent 55%);
 }
 .hero__inner { padding-block: clamp(3.5rem, 9vw, 7rem); max-width: 760px; }
 .hero h1 { color: var(--white); }
@@ -240,7 +240,7 @@ p { color: var(--ink-soft); }
 
 .card--dark { background: var(--navy-700); border-color: var(--line-dark); color: var(--on-dark); }
 .card--dark p { color: var(--on-dark-soft); }
-.card--dark .card__icon { background: rgba(74,163,44,0.16); color: var(--amber-400); }
+.card--dark .card__icon { background: rgba(65,144,58,0.16); color: var(--amber-400); }
 
 /* Credibility "we've been there" cards */
 .cred-card {
@@ -398,7 +398,7 @@ p { color: var(--ink-soft); }
 /* ---- Contact info panel ------------------------------------------------ */
 .info-list { display: grid; gap: 1.3rem; }
 .info-list li { display: flex; gap: 0.9rem; align-items: flex-start; }
-.info-list .info-ic { width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center; background: rgba(74,163,44,0.16); color: var(--amber-400); flex: 0 0 auto; }
+.info-list .info-ic { width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center; background: rgba(65,144,58,0.16); color: var(--amber-400); flex: 0 0 auto; }
 .info-list .info-ic svg { width: 22px; height: 22px; }
 .info-list .lbl { font-family: var(--font-head); font-weight: 700; color: var(--white); }
 .info-list .val { color: var(--on-dark-soft); font-size: 0.96rem; }
