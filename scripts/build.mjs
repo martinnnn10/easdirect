@@ -101,7 +101,6 @@ const NAV = [
   { label: "Direct Hire", href: "direct-hire.html" },
   { label: "Industries", href: "industries.html" },
   { label: "Positions", href: "positions.html" },
-  { label: "Success Stories", href: "success-stories.html" },
   { label: "Resources", href: "resources.html" },
   { label: "About", href: "about.html" },
 ];
@@ -398,7 +397,6 @@ function footerMarkup() {
           <h4>Company</h4>
           <a href="direct-hire.html">Direct Hire</a>
           <a href="about.html">About EAS</a>
-          <a href="success-stories.html">Success Stories</a>
           <a href="resources.html">Resources</a>
           <a href="contact.html">Contact</a>
           <a href="${SITE.phoneHref}">${SITE.phone}</a>
@@ -631,11 +629,6 @@ function homePage() {
       <div class="grid grid-4">
         ${cards}
       </div>
-      <ul class="checklist reveal" style="margin-top:2.4rem;max-width:60ch;margin-inline:auto">
-        <li>${I.check}<span>We understand electrical troubleshooting, PLCs, automation, CMMS, TPM, predictive maintenance and reliability.</span></li>
-        <li>${I.check}<span>We interview candidates <b>technically</b> &mdash; not just from a r&eacute;sum&eacute;.</span></li>
-        <li>${I.check}<span>We recruit <b>direct hire only</b>, exclusively for manufacturing. That focus is why we&rsquo;re good at it.</span></li>
-      </ul>
     </div>
   </section>
 
@@ -647,10 +640,8 @@ function homePage() {
           <h2>The McKinsey of manufacturing recruiting</h2>
           <p class="lead">We don&rsquo;t feel like a staffing company because we aren&rsquo;t one. EAS is the manufacturing talent authority &mdash; built by people who ran the maintenance and automation teams we now recruit.</p>
           <ul class="checklist" style="margin-top:1.4rem">
-            <li>${I.shield}<span>We recruit <b>only</b> manufacturing.</span></li>
-            <li>${I.shield}<span>We recruit <b>only</b> direct hire.</span></li>
+            <li>${I.shield}<span>Manufacturing only. Direct hire only.</span></li>
             <li>${I.shield}<span>We understand maintenance and automation because we&rsquo;ve done it ourselves.</span></li>
-            <li>${I.shield}<span>We guarantee our placements and follow a proven process.</span></li>
             <li>${I.shield}<span>We specialize in the hardest-to-fill technical roles.</span></li>
           </ul>
           <p style="margin-top:1.6rem"><a class="btn btn--primary" href="about.html">Why companies choose EAS ${I.arrow}</a></p>
@@ -666,7 +657,6 @@ function homePage() {
   ${statsSection()}
   ${industriesSection()}
   ${processSection()}
-  ${testimonialsSection(3)}
 
   <section class="section section--paper">
     <div class="container">
@@ -685,7 +675,6 @@ function homePage() {
     </div>
   </section>
 
-  ${resourcesTeaser()}
   ${ctaBand()}`;
 
   const jsonld = JSON.stringify({
@@ -789,7 +778,6 @@ function directHirePage() {
     </div>
   </section>
 
-  ${testimonialsSection(3)}
   ${ctaBand()}`;
 
   return page({
@@ -955,8 +943,6 @@ function industryDetailPage(ind) {
       </div>
     </div>
   </section>
-
-  ${testimonialsSection(3)}
 
   <section class="section section--paper">
     <div class="container">
@@ -1341,7 +1327,6 @@ written.push(write("direct-hire.html", directHirePage()));
 written.push(write("industries.html", industriesPage()));
 written.push(write("positions.html", positionsPage()));
 written.push(write("about.html", aboutPage()));
-written.push(write("success-stories.html", successPage()));
 written.push(write("resources.html", resourcesPage()));
 written.push(write("contact.html", contactPage()));
 written.push(write("404.html", notFoundPage()));
