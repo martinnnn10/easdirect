@@ -127,6 +127,18 @@
     });
   });
 
+  /* ---- Image fallback --------------------------------------------------
+     If any image fails to load (e.g. a dead stock URL), hide it so it
+     degrades to a clean dark panel instead of a broken-image icon. */
+  window.addEventListener(
+    "error",
+    function (e) {
+      var t = e.target;
+      if (t && t.tagName === "IMG") { t.style.visibility = "hidden"; }
+    },
+    true
+  );
+
   /* ---- Footer year ----------------------------------------------------- */
   var yr = document.getElementById("yr");
   if (yr) {

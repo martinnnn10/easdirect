@@ -126,25 +126,25 @@ const POSITIONS = [
 ];
 
 const INDUSTRIES = [
-  { slug: "food-manufacturing-recruiting", name: "Food Manufacturing", short: "Food", img: IMG.food,
+  { slug: "food-manufacturing-recruiting", name: "Food Manufacturing", short: "Food", icon: I.factory,
     blurb: "USDA/FDA-regulated plants, high-speed lines, sanitation and uptime pressure." },
-  { slug: "dairy-recruiting", name: "Dairy", short: "Dairy", img: IMG.dairy,
+  { slug: "dairy-recruiting", name: "Dairy", short: "Dairy", icon: I.gauge,
     blurb: "Continuous processing, CIP systems, refrigeration and 24/7 reliability demands." },
-  { slug: "bakery-recruiting", name: "Bakery", short: "Bakery", img: IMG.bakery,
+  { slug: "bakery-recruiting", name: "Bakery", short: "Bakery", icon: I.factory,
     blurb: "Ovens, proofers, depositors and conveyors that can't go down mid-shift." },
-  { slug: "packaging-recruiting", name: "Packaging", short: "Packaging", img: IMG.packaging,
+  { slug: "packaging-recruiting", name: "Packaging", short: "Packaging", icon: I.gear,
     blurb: "Fillers, cappers, case packers, palletizers and servo-driven motion control." },
-  { slug: "beverage-recruiting", name: "Beverage", short: "Beverage", img: IMG.beverage,
+  { slug: "beverage-recruiting", name: "Beverage", short: "Beverage", icon: I.gauge,
     blurb: "High-speed bottling and canning, blow-molding and rinse-fill-seal lines." },
-  { slug: "cold-storage-recruiting", name: "Cold Storage", short: "Cold Storage", img: IMG.coldStorage,
+  { slug: "cold-storage-recruiting", name: "Cold Storage", short: "Cold Storage", icon: I.building,
     blurb: "Ammonia refrigeration, automated storage/retrieval and food-safe environments." },
-  { slug: "plastics-recruiting", name: "Plastics", short: "Plastics", img: IMG.plastics,
+  { slug: "plastics-recruiting", name: "Plastics", short: "Plastics", icon: I.gear,
     blurb: "Injection molding, extrusion, robotics and tight tolerance automation." },
-  { slug: "can-manufacturing-recruiting", name: "Can Manufacturing", short: "Cans", img: IMG.can,
+  { slug: "can-manufacturing-recruiting", name: "Can Manufacturing", short: "Cans", icon: I.factory,
     blurb: "Bodymakers, necker-flangers and ultra-high-speed metal forming lines." },
-  { slug: "paper-manufacturing-recruiting", name: "Paper Manufacturing", short: "Paper", img: IMG.paper,
+  { slug: "paper-manufacturing-recruiting", name: "Paper Manufacturing", short: "Paper", icon: I.clipboard,
     blurb: "Paper machines, converting, drives and DCS-controlled continuous process." },
-  { slug: "chemical-manufacturing-recruiting", name: "Chemical Manufacturing", short: "Chemical", img: IMG.chemical,
+  { slug: "chemical-manufacturing-recruiting", name: "Chemical Manufacturing", short: "Chemical", icon: I.shield,
     blurb: "Batch and continuous process, PSM environments, instrumentation and DCS." },
 ];
 
@@ -533,7 +533,7 @@ function testimonialsSection(limit = 3) {
 
 function industriesSection() {
   const tiles = INDUSTRIES.map(
-    (i) => `<a class="tile reveal" href="${i.slug}.html"><img src="${i.img}" alt="${i.name} plant environment" loading="lazy" /><div class="tile__body"><h3>${i.name}</h3><span class="tile__link">${i.short} recruiting ${I.arrow}</span></div></a>`
+    (i) => `<a class="tile reveal" href="${i.slug}.html"><span class="tile__ic">${i.icon}</span><div class="tile__body"><h3>${i.name}</h3><span class="tile__link">${i.short} recruiting ${I.arrow}</span></div></a>`
   ).join("\n        ");
   return `<section class="section section--navy" id="industries">
     <div class="container">
@@ -595,7 +595,7 @@ function homePage() {
     { tag: "We&rsquo;ve done the job", h: "Former Maintenance Manager", p: "We&rsquo;ve owned the maintenance budget, the PM schedule and the 2 a.m. downtime call. We know what a strong department looks like." },
     { tag: "We&rsquo;ve done the job", h: "Former PLC Technician", p: "We&rsquo;ve stood at the panel with a laptop and a deadline. We can tell who can actually diagnose a PLC and who only talks about it." },
     { tag: "We&rsquo;ve done the job", h: "Former Automation Engineer", p: "We&rsquo;ve commissioned lines, written the logic and chased the intermittent fault. We screen for real automation skill." },
-    { tag: "We&rsquo;ve done the job", h: "Former Maintenance Planner", p: "We&rsquo;ve built the schedules and driven reliability &mdash; CMMS, TPM and predictive maintenance &mdash; so we know the work first-hand." },
+    { tag: "We&rsquo;ve done the job", h: "Former Electrical Maintenance Technician", p: "We&rsquo;ve pulled the wire, chased the fault and kept the line running. We know the hands-on work because we&rsquo;ve done it." },
   ];
   const cards = credCards
     .map((c) => `<article class="cred-card reveal"><span class="tag">${c.tag}</span><h3>${c.h}</h3><p>${c.p}</p></article>`)
@@ -657,23 +657,6 @@ function homePage() {
   ${statsSection()}
   ${industriesSection()}
   ${processSection()}
-
-  <section class="section section--paper">
-    <div class="container">
-      <div class="section-head center reveal">
-        <span class="eyebrow">This is manufacturing</span>
-        <h2>It should feel like the floor &mdash; because that&rsquo;s where we come from</h2>
-      </div>
-      <div class="gallery reveal">
-        <figure class="wide tall"><img src="${IMG.controlPanel}" alt="Industrial PLC control panel and wiring" loading="lazy" /></figure>
-        <figure><img src="${IMG.conveyor}" alt="Packaging conveyor line" loading="lazy" /></figure>
-        <figure><img src="${IMG.robotArm}" alt="Industrial robot arm on an automated line" loading="lazy" /></figure>
-        <figure><img src="${IMG.technician}" alt="Maintenance technician troubleshooting equipment" loading="lazy" /></figure>
-        <figure class="wide"><img src="${IMG.plantWide}" alt="Wide view of a manufacturing plant floor" loading="lazy" /></figure>
-        <figure><img src="${IMG.wiring}" alt="Electrical control wiring and terminals" loading="lazy" /></figure>
-      </div>
-    </div>
-  </section>
 
   ${ctaBand()}`;
 
@@ -848,7 +831,7 @@ function positionsPage() {
 --------------------------------------------------------------------------- */
 function industriesPage() {
   const tiles = INDUSTRIES.map(
-    (i) => `<a class="tile reveal" href="${i.slug}.html"><img src="${i.img}" alt="${i.name} manufacturing environment" loading="lazy" /><div class="tile__body"><h3>${i.name} Recruiting</h3><p>${i.blurb}</p><span class="tile__link">Explore ${i.name} ${I.arrow}</span></div></a>`
+    (i) => `<a class="tile tile--tall reveal" href="${i.slug}.html"><span class="tile__ic">${i.icon}</span><div class="tile__body"><h3>${i.name} Recruiting</h3><p>${i.blurb}</p><span class="tile__link">Explore ${i.name} ${I.arrow}</span></div></a>`
   ).join("\n        ");
 
   const body = `${pageHero({
@@ -889,8 +872,8 @@ function industryDetailPage(ind) {
     .map((p) => `<span class="chip">${p.name}</span>`)
     .join("");
 
-  const body = `<section class="hero">
-    <div class="hero__bg"><img src="${ind.img}" alt="${ind.name} manufacturing plant" /></div>
+  const body = `<section class="hero hero--brand">
+    <div class="hero__bg"><img src="${IMG.heroPlant}" alt="Industrial workshop backdrop" /></div>
     <div class="hero__overlay"></div>
     <div class="container">
       <div class="hero__page">
@@ -990,7 +973,7 @@ function aboutPage() {
           <span class="eyebrow">Our story</span>
           <h2>Built by maintenance and automation leaders</h2>
           <p class="lead">&ldquo;Our recruiters have worked in manufacturing. We&rsquo;ve been the maintenance technician troubleshooting a production line at 2&nbsp;a.m. We&rsquo;ve managed maintenance departments. We know the difference between someone who can talk about PLCs and someone who can actually diagnose one.&rdquo;</p>
-          <p>Most recruiters have never set foot in a plant. They match keywords. We came up through the trades and engineering ranks &mdash; as PLC technicians, controls engineers, maintenance managers and reliability leaders &mdash; and we built EAS to recruit the way we always wished recruiters would.</p>
+          <p>Most recruiters have never set foot in a plant. They match keywords. We came up through the trades and engineering ranks &mdash; as maintenance and electrical maintenance technicians, maintenance supervisors, PLC and controls technicians, and controls/automation engineers &mdash; and we built EAS to recruit the way we always wished recruiters would.</p>
           <p>That authenticity is our entire advantage. When we call a passive candidate, they talk to us because we speak their language. When we present a candidate to you, it&rsquo;s because we&rsquo;ve technically vetted them ourselves.</p>
         </div>
         <div class="split__media reveal">
