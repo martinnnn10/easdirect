@@ -20,7 +20,7 @@ const SITE = {
   name: "EAS",
   full: "Electrical Automation Services, Inc.",
   tagline: "Manufacturing Direct Hire",
-  logo: "assets/img/eas-logo.svg",
+  logo: "assets/img/eas-logo.png",
   domain: "https://eautomatedstaffing.com",
   phone: "773-514-6321",
   phoneHref: "tel:+17735146321",
@@ -352,7 +352,7 @@ function navMarkup(current) {
     <div class="container">
       <nav class="nav" aria-label="Primary">
         <a class="brand" href="index.html" aria-label="${SITE.full} home">
-          <img class="brand__logo" src="${SITE.logo}" alt="${SITE.full}" width="620" height="170" />
+          <img class="brand__logo" src="${SITE.logo}" alt="${SITE.full}" width="1237" height="538" />
         </a>
         <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">${I.menu}</button>
         <div class="nav__links" id="nav-links" data-open="false">
@@ -376,7 +376,7 @@ function footerMarkup() {
       <div class="footer-grid">
         <div>
           <a class="brand" href="index.html">
-            <img class="brand__logo brand__logo--footer" src="${SITE.logo}" alt="${SITE.full}" width="620" height="170" />
+            <img class="brand__logo brand__logo--footer" src="${SITE.logo}" alt="${SITE.full}" width="1237" height="538" />
           </a>
           <p class="footer-about">The manufacturing talent authority. Former maintenance and automation leaders recruiting the technical professionals other firms can&rsquo;t reach. Direct hire only.</p>
           <p style="margin-top:1.1rem"><a class="btn btn--primary" href="contact.html">Request Candidates ${I.arrow}</a></p>
@@ -418,9 +418,9 @@ function page({ title, description, current, body, jsonld = "" }) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>${title}</title>
   <meta name="description" content="${description}" />
-  <meta name="theme-color" content="#06121f" />
-  <link rel="icon" href="assets/img/eas-mark.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="assets/img/eas-mark.svg" />
+  <meta name="theme-color" content="#0a0c0d" />
+  <link rel="icon" href="assets/img/eas-mark.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/img/eas-mark.png" />
   <meta property="og:title" content="${title}" />
   <meta property="og:description" content="${description}" />
   <meta property="og:type" content="website" />

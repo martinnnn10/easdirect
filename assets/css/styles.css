@@ -2,35 +2,37 @@
    EAS — Manufacturing Direct Hire Recruiting
    Design system & site styles
    --------------------------------------------------------------------------
-   Aesthetic: industrial, premium, confident. Deep steel navy + safety amber.
+   Aesthetic: industrial, premium, confident. Charcoal/black + EAS green + steel.
    ========================================================================== */
 
 /* ---- Design tokens ----------------------------------------------------- */
 :root {
-  /* Brand palette */
-  --navy-900: #06121f;
-  --navy-800: #0a1c2e;
-  --navy-700: #0e273f;
-  --navy-600: #143350;
-  --steel-500: #2a4a68;
-  --steel-300: #6b8aa6;
-  --slate-200: #c8d4de;
-  --slate-100: #e7edf2;
-  --paper: #f5f7f9;
+  /* Brand palette — industrial charcoal/graphite (matches the black metal
+     look of the EAS logo) with metallic steel accents. */
+  --navy-900: #0a0c0d;
+  --navy-800: #121517;
+  --navy-700: #1b2023;
+  --navy-600: #262c30;
+  --steel-500: #39434a;
+  --steel-300: #808d95;
+  --slate-200: #c9d1d6;
+  --slate-100: #e8ecef;
+  --paper: #f4f6f6;
   --white: #ffffff;
 
-  /* Safety amber accent */
-  --amber-500: #f5821f;
-  --amber-400: #ff9836;
-  --amber-600: #d96c0a;
-  --amber-soft: rgba(245, 130, 31, 0.12);
+  /* EAS green accent (from the logo) */
+  --amber-500: #4aa32c;
+  --amber-400: #6bc247;
+  --amber-600: #2f7d18;
+  --amber-soft: rgba(74, 163, 44, 0.13);
+  --green-btn: #35801d;
 
   /* Text */
-  --ink: #0c1722;
-  --ink-soft: #3d4f5d;
-  --ink-muted: #6a7c89;
-  --on-dark: #eaf1f7;
-  --on-dark-soft: #9fb3c4;
+  --ink: #14181a;
+  --ink-soft: #444d52;
+  --ink-muted: #6d777d;
+  --on-dark: #eef1f2;
+  --on-dark-soft: #a7b1b6;
 
   /* Lines & surfaces */
   --line: #dde5eb;
@@ -46,9 +48,9 @@
   --gap: clamp(1rem, 2.5vw, 2rem);
   --radius: 14px;
   --radius-sm: 8px;
-  --shadow-sm: 0 1px 2px rgba(6, 18, 31, 0.06), 0 4px 14px rgba(6, 18, 31, 0.06);
-  --shadow-md: 0 10px 30px rgba(6, 18, 31, 0.10);
-  --shadow-lg: 0 24px 60px rgba(6, 18, 31, 0.18);
+  --shadow-sm: 0 1px 2px rgba(10, 12, 13, 0.07), 0 4px 14px rgba(10, 12, 13, 0.07);
+  --shadow-md: 0 10px 30px rgba(10, 12, 13, 0.12);
+  --shadow-lg: 0 24px 60px rgba(10, 12, 13, 0.22);
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -132,8 +134,8 @@ p { color: var(--ink-soft); }
 }
 .btn svg { width: 18px; height: 18px; }
 .btn:hover { transform: translateY(-2px); }
-.btn--primary { background: var(--amber-500); color: #1c1003; box-shadow: 0 8px 22px rgba(245, 130, 31, 0.35); }
-.btn--primary:hover { background: var(--amber-400); box-shadow: 0 12px 30px rgba(245, 130, 31, 0.45); }
+.btn--primary { background: var(--green-btn); color: #ffffff; box-shadow: 0 8px 22px rgba(47, 125, 24, 0.35); }
+.btn--primary:hover { background: var(--amber-500); box-shadow: 0 12px 30px rgba(47, 125, 24, 0.45); }
 .btn--ghost { background: transparent; color: var(--on-dark); border-color: rgba(255,255,255,0.35); }
 .btn--ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.06); }
 .btn--dark { background: var(--navy-800); color: var(--white); }
@@ -146,7 +148,7 @@ p { color: var(--ink-soft); }
 /* ---- Header / nav ------------------------------------------------------ */
 .site-header {
   position: sticky; top: 0; z-index: 60;
-  background: rgba(6, 18, 31, 0.92);
+  background: rgba(10, 12, 13, 0.92);
   backdrop-filter: saturate(140%) blur(10px);
   border-bottom: 1px solid var(--line-dark);
 }
@@ -200,8 +202,8 @@ p { color: var(--ink-soft); }
 .hero__overlay {
   position: absolute; inset: 0; z-index: -1;
   background:
-    linear-gradient(115deg, rgba(6,18,31,0.96) 30%, rgba(6,18,31,0.74) 62%, rgba(10,28,46,0.55) 100%),
-    radial-gradient(120% 80% at 90% 10%, rgba(245,130,31,0.18), transparent 55%);
+    linear-gradient(115deg, rgba(10,12,13,0.96) 30%, rgba(10,12,13,0.74) 62%, rgba(18,21,23,0.55) 100%),
+    radial-gradient(120% 80% at 90% 10%, rgba(74,163,44,0.20), transparent 55%);
 }
 .hero__inner { padding-block: clamp(3.5rem, 9vw, 7rem); max-width: 760px; }
 .hero h1 { color: var(--white); }
@@ -238,7 +240,7 @@ p { color: var(--ink-soft); }
 
 .card--dark { background: var(--navy-700); border-color: var(--line-dark); color: var(--on-dark); }
 .card--dark p { color: var(--on-dark-soft); }
-.card--dark .card__icon { background: rgba(245,130,31,0.16); color: var(--amber-400); }
+.card--dark .card__icon { background: rgba(74,163,44,0.16); color: var(--amber-400); }
 
 /* Credibility "we've been there" cards */
 .cred-card {
@@ -308,7 +310,7 @@ p { color: var(--ink-soft); }
 /* ---- Industry / image cards ------------------------------------------- */
 .tile { position: relative; border-radius: var(--radius); overflow: hidden; min-height: 260px; display: flex; box-shadow: var(--shadow-sm); }
 .tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--ease); }
-.tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(6,18,31,0.15) 30%, rgba(6,18,31,0.9) 100%); }
+.tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10,12,13,0.15) 30%, rgba(10,12,13,0.92) 100%); }
 .tile:hover img { transform: scale(1.06); }
 .tile__body { position: relative; z-index: 1; margin-top: auto; padding: 1.4rem; color: var(--white); }
 .tile__body h3 { color: var(--white); font-size: 1.3rem; }
@@ -354,7 +356,7 @@ p { color: var(--ink-soft); }
 .cta-band { position: relative; overflow: hidden; isolation: isolate; }
 .cta-band__bg { position: absolute; inset: 0; z-index: -2; }
 .cta-band__bg img { width: 100%; height: 100%; object-fit: cover; }
-.cta-band::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(6,18,31,0.96), rgba(10,28,46,0.82)); }
+.cta-band::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(10,12,13,0.96), rgba(18,21,23,0.82)); }
 .cta-band .container { text-align: center; }
 .cta-band h2 { color: var(--white); }
 .cta-roles { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; margin: 1.4rem 0 1.8rem; }
@@ -396,7 +398,7 @@ p { color: var(--ink-soft); }
 /* ---- Contact info panel ------------------------------------------------ */
 .info-list { display: grid; gap: 1.3rem; }
 .info-list li { display: flex; gap: 0.9rem; align-items: flex-start; }
-.info-list .info-ic { width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center; background: rgba(245,130,31,0.16); color: var(--amber-400); flex: 0 0 auto; }
+.info-list .info-ic { width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center; background: rgba(74,163,44,0.16); color: var(--amber-400); flex: 0 0 auto; }
 .info-list .info-ic svg { width: 22px; height: 22px; }
 .info-list .lbl { font-family: var(--font-head); font-weight: 700; color: var(--white); }
 .info-list .val { color: var(--on-dark-soft); font-size: 0.96rem; }
@@ -429,7 +431,7 @@ p { color: var(--ink-soft); }
 }
 
 /* ---- Misc -------------------------------------------------------------- */
-.skip-link { position: absolute; left: -999px; top: 0; background: var(--amber-500); color: #1c1003; padding: 0.6rem 1rem; z-index: 100; border-radius: 0 0 8px 0; font-family: var(--font-head); font-weight: 700; }
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--green-btn); color: #ffffff; padding: 0.6rem 1rem; z-index: 100; border-radius: 0 0 8px 0; font-family: var(--font-head); font-weight: 700; }
 .skip-link:focus { left: 0; }
 .kicker-band { background: var(--amber-soft); border-block: 1px solid var(--amber-500); }
 .prose p { margin-bottom: 1.1rem; }
