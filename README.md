@@ -151,17 +151,28 @@ error message (with phone/email fallback) if a submission ever fails.
 
 ---
 
-## Deploying
+## Deploying (Cloudflare Pages)
 
-Because it's plain static files, deploy the repository root to any host:
+This site is optimized for **Cloudflare Pages** — plain static files, no build
+command, no backend.
 
-- **Netlify / Vercel / Cloudflare Pages:** connect the repo; no build command
-  needed (publish directory = repo root).
-- **GitHub Pages:** serve from the repository root of the published branch.
-- **Any web host / S3:** upload all files, keeping the folder structure.
+- **Build command:** _(leave empty)_
+- **Build output directory:** `/` (repo root — the HTML files live at the root)
+- `_headers` is included and read automatically by Cloudflare Pages (long-cache
+  for `/assets/*`, baseline security headers).
+- The custom **404** page is served automatically from `/404.html`.
 
-Update `SITE.domain` in `scripts/build.mjs` and rebuild so `sitemap.xml`,
-`robots.txt`, and social tags reference your live domain.
+Two ways to deploy:
+
+1. **Git integration (recommended):** in the Cloudflare dashboard → Workers &
+   Pages → Create → Pages → Connect to Git → pick `martinnnn10/easdirect`. Set
+   build command empty and output dir `/`. Every push auto-deploys.
+2. **Direct upload / Wrangler:** `npx wrangler pages deploy .` from the repo
+   root, or drag the extracted folder into a Pages "Direct Upload" project.
+
+Also works on Netlify, Vercel, GitHub Pages, or any static host. Update
+`SITE.domain` in `scripts/build.mjs` and rebuild so `sitemap.xml`, `robots.txt`,
+canonical tags and social tags reference your live domain.
 
 ---
 

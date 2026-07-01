@@ -425,6 +425,7 @@ function page({ title, description, current, body, jsonld = "" }) {
   <meta property="og:description" content="${description}" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${SITE.full}" />
+  <!--CANONICAL-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -1319,6 +1320,14 @@ ${items}
    Build
 --------------------------------------------------------------------------- */
 function write(name, content) {
+  // Inject per-page canonical + og:url for HTML pages (no-op for other files).
+  if (content.includes("<!--CANONICAL-->")) {
+    const url = SITE.domain + "/" + (name === "index.html" ? "" : name);
+    content = content.replace(
+      "<!--CANONICAL-->",
+      `<link rel="canonical" href="${url}" />\n  <meta property="og:url" content="${url}" />`
+    );
+  }
   writeFileSync(join(ROOT, name), content);
   return name;
 }
@@ -1345,28 +1354,20 @@ const urls = ["", ...written.filter((f) => f !== "404.html")];
 write("sitemap.xml", sitemap(urls));
 write("robots.txt", `User-agent: *\nAllow: /\nSitemap: ${SITE.domain}/sitemap.xml\n`);
 
-/* Apache/.htaccess for GoDaddy cPanel (Linux) hosting: custom 404 page,
-   sensible caching, and gzip compression. Ignored by non-Apache hosts. */
-write(".htaccess", `# EAS static site — Apache config (GoDaddy cPanel / Linux hosting)
-Options -Indexes
-DirectoryIndex index.html
+/* Cloudflare Pages headers: long-cache immutable assets + baseline security
+   headers. Cloudflare Pages reads this `_headers` file automatically. The custom
+   404 page is served automatically by Cloudflare Pages from /404.html. */
+write("_headers", `# Cache fingerprint-free assets for a year (safe: content is static)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
 
-ErrorDocument 404 /404.html
-
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/xml
-</IfModule>
-
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType text/css "access plus 7 days"
-  ExpiresByType application/javascript "access plus 7 days"
-  ExpiresByType image/svg+xml "access plus 30 days"
-  ExpiresByType image/jpeg "access plus 30 days"
-  ExpiresByType image/png "access plus 30 days"
-  ExpiresByType text/html "access plus 1 hour"
-</IfModule>
+# Baseline security headers for every response
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
 `);
 
-console.log(`Built ${written.length} pages + sitemap.xml + robots.txt + .htaccess`);
+console.log(`Built ${written.length} pages + sitemap.xml + robots.txt + _headers (Cloudflare Pages)`);
 written.forEach((f) => console.log("  " + f));
