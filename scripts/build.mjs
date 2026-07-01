@@ -45,7 +45,7 @@ const FORM = {
    These load directly in the visitor's browser. Swap any `src` for your own
    photo URL or a local file in assets/img/ when you have your own photography. */
 const IMG = {
-  heroPlant: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1920&q=70",
+  heroPlant: "assets/img/hero-industrial.jpg",
   controlPanel: "https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=1200&q=70",
   technician: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=70",
   robotArm: "https://images.unsplash.com/photo-1565043666747-69f6646db940?auto=format&fit=crop&w=1200&q=70",
@@ -106,21 +106,24 @@ const NAV = [
   { label: "About", href: "about.html" },
 ];
 
+// Real roles EAS recruits (singular, deduped) — from the client's placed-roles list.
 const POSITIONS = [
-  { name: "Maintenance Technicians", icon: I.wrench },
-  { name: "Maintenance Supervisors", icon: I.users },
-  { name: "Maintenance Managers", icon: I.badge },
-  { name: "Controls Engineers", icon: I.chip },
-  { name: "Automation Engineers", icon: I.gear },
-  { name: "Electrical Engineers", icon: I.bolt },
-  { name: "Reliability Engineers", icon: I.gauge },
-  { name: "Plant Managers", icon: I.factory },
-  { name: "Operations Managers", icon: I.clipboard },
-  { name: "Maintenance Planners", icon: I.search },
-  { name: "Instrumentation Technicians", icon: I.gauge },
-  { name: "PLC Programmers", icon: I.chip },
-  { name: "Automation Managers", icon: I.gear },
-  { name: "Maintenance Engineers", icon: I.wrench },
+  { name: "Maintenance Technician", icon: I.wrench },
+  { name: "Electrical Maintenance Technician", icon: I.bolt },
+  { name: "Maintenance Supervisor", icon: I.users },
+  { name: "Maintenance Planner", icon: I.search },
+  { name: "Maintenance Director", icon: I.badge },
+  { name: "Automation Technician", icon: I.gear },
+  { name: "Automation Engineer", icon: I.gear },
+  { name: "PLC Technician", icon: I.chip },
+  { name: "Electrical Planner", icon: I.clipboard },
+  { name: "EHS Manager", icon: I.shield },
+  { name: "EHS Specialist", icon: I.shield },
+  { name: "Plant Operations Manager", icon: I.factory },
+  { name: "Production Supervisor", icon: I.gauge },
+  { name: "Machine Operator", icon: I.wrench },
+  { name: "HR Generalist", icon: I.users },
+  { name: "HR Regional Manager", icon: I.badge },
 ];
 
 const INDUSTRIES = [
@@ -591,17 +594,17 @@ function pageHero({ crumbs, eyebrow, h1, sub }) {
 --------------------------------------------------------------------------- */
 function homePage() {
   const credCards = [
-    { tag: "We&rsquo;ve done the job", h: "Former Maintenance Managers", p: "We&rsquo;ve owned the maintenance budget, the PM schedule and the 2 a.m. downtime call. We know what a strong department looks like." },
-    { tag: "We&rsquo;ve done the job", h: "Former PLC Technicians", p: "We&rsquo;ve stood at the panel with a laptop and a deadline. We can tell who can actually diagnose a PLC and who only talks about it." },
-    { tag: "We&rsquo;ve done the job", h: "Former Controls Engineers", p: "We&rsquo;ve commissioned lines, written the logic and chased the intermittent fault. We screen for real automation skill." },
-    { tag: "We&rsquo;ve done the job", h: "Former Maintenance Leaders", p: "We&rsquo;ve built and led the teams we now recruit. We understand reliability, CMMS, TPM and predictive maintenance first-hand." },
+    { tag: "We&rsquo;ve done the job", h: "Former Maintenance Manager", p: "We&rsquo;ve owned the maintenance budget, the PM schedule and the 2 a.m. downtime call. We know what a strong department looks like." },
+    { tag: "We&rsquo;ve done the job", h: "Former PLC Technician", p: "We&rsquo;ve stood at the panel with a laptop and a deadline. We can tell who can actually diagnose a PLC and who only talks about it." },
+    { tag: "We&rsquo;ve done the job", h: "Former Automation Engineer", p: "We&rsquo;ve commissioned lines, written the logic and chased the intermittent fault. We screen for real automation skill." },
+    { tag: "We&rsquo;ve done the job", h: "Former Maintenance Planner", p: "We&rsquo;ve built the schedules and driven reliability &mdash; CMMS, TPM and predictive maintenance &mdash; so we know the work first-hand." },
   ];
   const cards = credCards
     .map((c) => `<article class="cred-card reveal"><span class="tag">${c.tag}</span><h3>${c.h}</h3><p>${c.p}</p></article>`)
     .join("\n        ");
 
-  const body = `<section class="hero">
-    <div class="hero__bg"><img src="${IMG.heroPlant}" alt="Maintenance technician working on industrial control equipment on a manufacturing floor" /></div>
+  const body = `<section class="hero hero--brand">
+    <div class="hero__bg"><img src="${IMG.heroPlant}" alt="Electrical Automation Services industrial workshop backdrop" /></div>
     <div class="hero__overlay"></div>
     <div class="container">
       <div class="hero__inner">
@@ -1021,7 +1024,7 @@ function aboutPage() {
         <div class="card card--dark reveal"><div class="card__icon">${I.badge}</div><h3>Former Maintenance Manager</h3><p>We&rsquo;ve owned the department, the budget and the downtime accountability.</p></div>
         <div class="card card--dark reveal"><div class="card__icon">${I.chip}</div><h3>Former PLC Technician</h3><p>We&rsquo;ve stood at the panel and diagnosed the fault, not just read about it.</p></div>
         <div class="card card--dark reveal"><div class="card__icon">${I.gear}</div><h3>Former Controls Engineer</h3><p>We&rsquo;ve designed, commissioned and debugged real automation systems.</p></div>
-        <div class="card card--dark reveal"><div class="card__icon">${I.users}</div><h3>Former Maintenance Leader</h3><p>We&rsquo;ve built and led the kinds of teams we now help you build.</p></div>
+        <div class="card card--dark reveal"><div class="card__icon">${I.users}</div><h3>Former Automation Technician</h3><p>We&rsquo;ve wired the panels and kept the lines running on the floor.</p></div>
         <div class="card card--dark reveal"><div class="card__icon">${I.gauge}</div><h3>Reliability fluent</h3><p>We understand CMMS, TPM, RCM and predictive maintenance in practice.</p></div>
         <div class="card card--dark reveal"><div class="card__icon">${I.search}</div><h3>We interview technically</h3><p>Candidates are vetted on the work &mdash; not just what&rsquo;s on the r&eacute;sum&eacute;.</p></div>
       </div>
