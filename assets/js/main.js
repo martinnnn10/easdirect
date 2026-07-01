@@ -77,8 +77,26 @@
       var action = form.getAttribute("action") || "";
       var configured = action && action.indexOf("your-form-id") === -1;
 
-      // Endpoint not configured yet → friendly demo confirmation.
+      // No form backend configured yet → fall back to a pre-filled email so the
+      // request still reaches the team. Set FORM.endpoint (Formspree) for
+      // seamless one-click delivery instead — see README.
       if (!configured) {
+        var to = form.getAttribute("data-mailto");
+        if (to) {
+          var data = new FormData(form);
+          var lines = [];
+          data.forEach(function (val, key) {
+            if (key.charAt(0) === "_" || !String(val).trim()) return;
+            var label = key.charAt(0).toUpperCase() + key.slice(1);
+            lines.push(label + ": " + val);
+          });
+          var subject = "Candidate request from " + (data.get("company") || "website");
+          var href =
+            "mailto:" + to +
+            "?subject=" + encodeURIComponent(subject) +
+            "&body=" + encodeURIComponent(lines.join("\n"));
+          window.location.href = href;
+        }
         showSuccess(form);
         form.reset();
         return;

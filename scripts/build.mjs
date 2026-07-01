@@ -18,11 +18,12 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 --------------------------------------------------------------------------- */
 const SITE = {
   name: "EAS",
-  full: "EAS — Electrical Automation Staffing",
+  full: "Electrical Automation Services, Inc.",
   tagline: "Manufacturing Direct Hire",
+  logo: "assets/img/eas-logo.svg",
   domain: "https://eautomatedstaffing.com",
-  phone: "(800) 555-0142",
-  phoneHref: "tel:+18005550142",
+  phone: "773-514-6321",
+  phoneHref: "tel:+17735146321",
   email: "recruiting@eautomatedstaffing.com",
   region: "Nationwide · United States & Canada",
 };
@@ -351,11 +352,7 @@ function navMarkup(current) {
     <div class="container">
       <nav class="nav" aria-label="Primary">
         <a class="brand" href="index.html" aria-label="${SITE.full} home">
-          <span class="brand__mark">EAS</span>
-          <span class="brand__text">
-            <span class="brand__name">Electrical Automation Staffing</span>
-            <span class="brand__sub">${SITE.tagline}</span>
-          </span>
+          <img class="brand__logo" src="${SITE.logo}" alt="${SITE.full}" width="620" height="170" />
         </a>
         <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">${I.menu}</button>
         <div class="nav__links" id="nav-links" data-open="false">
@@ -379,11 +376,7 @@ function footerMarkup() {
       <div class="footer-grid">
         <div>
           <a class="brand" href="index.html">
-            <span class="brand__mark">EAS</span>
-            <span class="brand__text">
-              <span class="brand__name">Electrical Automation Staffing</span>
-              <span class="brand__sub">${SITE.tagline}</span>
-            </span>
+            <img class="brand__logo brand__logo--footer" src="${SITE.logo}" alt="${SITE.full}" width="620" height="170" />
           </a>
           <p class="footer-about">The manufacturing talent authority. Former maintenance and automation leaders recruiting the technical professionals other firms can&rsquo;t reach. Direct hire only.</p>
           <p style="margin-top:1.1rem"><a class="btn btn--primary" href="contact.html">Request Candidates ${I.arrow}</a></p>
@@ -426,6 +419,8 @@ function page({ title, description, current, body, jsonld = "" }) {
   <title>${title}</title>
   <meta name="description" content="${description}" />
   <meta name="theme-color" content="#06121f" />
+  <link rel="icon" href="assets/img/eas-mark.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="assets/img/eas-mark.svg" />
   <meta property="og:title" content="${title}" />
   <meta property="og:description" content="${description}" />
   <meta property="og:type" content="website" />
@@ -1231,7 +1226,7 @@ function contactPage() {
     <div class="container">
       <div class="split">
         <div class="reveal">
-          <form class="form" data-form action="${FORM.endpoint}" method="post" novalidate aria-label="Request candidates">
+          <form class="form" data-form data-mailto="${SITE.email}" action="${FORM.endpoint}" method="post" novalidate aria-label="Request candidates">
             <input type="hidden" name="_subject" value="New candidate request from eautomatedstaffing.com" />
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
             <div class="form-success">Thank you &mdash; your request has been received. A recruiter who has done the job will be in touch shortly.</div>
@@ -1251,7 +1246,7 @@ function contactPage() {
               </div>
               <div class="field"><label for="details">Tell us about the role</label><textarea id="details" name="details" placeholder="Location, shift, equipment / PLC platforms, must-have skills, target start date&hellip;"></textarea></div>
               <button class="btn btn--primary btn--lg btn--block" type="submit">Request Candidates ${I.arrow}</button>
-              <p class="form__note">By submitting you agree to be contacted about your hiring needs. Submissions are delivered to ${SITE.email} once the form endpoint is configured (see README).</p>
+              <p class="form__note">By submitting you agree to be contacted about your hiring needs. This opens an email to our team, pre-filled with your request &mdash; or call us directly at <a href="${SITE.phoneHref}">${SITE.phone}</a>. (For one-click delivery, connect a free Formspree endpoint &mdash; see README.)</p>
             </div>
           </form>
         </div>

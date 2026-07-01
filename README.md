@@ -106,13 +106,26 @@ controls engineers, industrial robots.
 
 ---
 
+## Logo
+
+The header/footer logo is an **SVG recreation** of the Electrical Automation
+Services, Inc. mark, at `assets/img/eas-logo.svg` (full lockup) and
+`assets/img/eas-mark.svg` (icon only, used as the favicon). To use your **exact**
+artwork instead, drop your file in `assets/img/` and point `SITE.logo` (in
+`scripts/build.mjs`) at it, then rebuild. A transparent-background PNG or SVG
+works best since the header and footer are dark.
+
 ## Wiring up the "Request Candidates" form
 
-The contact form (`contact.html`) is **already wired to submit via Formspree** —
-you just need to give it your form ID. It submits over `fetch`, so the visitor
-stays on the page and sees an inline confirmation. Until a real ID is set, the
-form stays in safe **demo mode** (shows the confirmation without sending), so it
-never looks broken.
+The contact form (`contact.html`) works out of the box: on submit it opens the
+visitor's email app with a **pre-filled message** to the address in `SITE.email`
+(currently `recruiting@eautomatedstaffing.com`) — so requests reach you with no
+backend. Change `SITE.email` and rebuild to route them elsewhere.
+
+**For smoother, one-click delivery (recommended, ~2 min):** connect a free
+Formspree endpoint. Once set, the form submits silently in the background via
+`fetch` (no email app needed) and shows an inline confirmation. Until then it
+uses the email fallback above, so it's never broken.
 
 **To go live (about 2 minutes):**
 
