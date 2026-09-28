@@ -426,6 +426,9 @@ function page({ title, description, current, body, jsonld = "" }) {
   <meta property="og:description" content="${description}" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${SITE.full}" />
+  <meta property="og:image" content="${SITE.domain}/assets/img/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="${SITE.domain}/assets/img/og-card.png" />
   <!--CANONICAL-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -871,6 +874,9 @@ function industryDetailPage(ind) {
   const rolePicks = POSITIONS.slice(0, 9)
     .map((p) => `<span class="chip">${p.name}</span>`)
     .join("");
+  // Clean label so names already ending in "Manufacturing" don't double the word.
+  const label = ind.name.replace(/\s+Manufacturing$/i, "");
+  const labelLc = label.toLowerCase();
 
   const body = `<section class="hero hero--brand">
     <div class="hero__bg"><img src="${IMG.heroPlant}" alt="Industrial workshop backdrop" /></div>
@@ -939,15 +945,15 @@ function industryDetailPage(ind) {
   const jsonld = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Service",
-    serviceType: `${ind.name} manufacturing recruiting`,
+    serviceType: `${labelLc} manufacturing recruiting`,
     provider: { "@type": "EmploymentAgency", name: SITE.full, url: SITE.domain },
     areaServed: ["United States", "Canada"],
-    description: `Direct hire recruiting of maintenance, controls, automation and reliability professionals for ${ind.name.toLowerCase()} manufacturing operations.`,
+    description: `Direct hire recruiting of maintenance, controls, automation and reliability professionals for ${labelLc} manufacturing operations.`,
   });
 
   return page({
     title: `${ind.name} Recruiting | Maintenance & Automation Direct Hire | EAS`,
-    description: `Specialized ${ind.name.toLowerCase()} manufacturing recruiting. EAS places maintenance, controls, automation and reliability professionals direct hire, nationwide, with a 6-month guarantee.`,
+    description: `Specialized ${labelLc} manufacturing recruiting &mdash; EAS places maintenance, controls, automation and reliability professionals, direct hire and nationwide.`,
     current: "industries.html",
     body,
     jsonld,
@@ -1163,13 +1169,23 @@ function articlePage(art, idx) {
 
   ${ctaBand()}`;
 
+  const today = new Date().toISOString().slice(0, 10);
   const jsonld = JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Article",
     headline: art.title,
     description: art.excerpt,
     about: art.cat,
-    publisher: { "@type": "Organization", name: SITE.full, url: SITE.domain },
+    mainEntityOfPage: `${SITE.domain}/${art.slug}`,
+    datePublished: today,
+    dateModified: today,
+    author: { "@type": "Organization", name: SITE.full, url: SITE.domain },
+    publisher: {
+      "@type": "Organization",
+      name: SITE.full,
+      url: SITE.domain,
+      logo: { "@type": "ImageObject", url: `${SITE.domain}/assets/img/og-card.png` },
+    },
   });
 
   return page({
@@ -1293,8 +1309,10 @@ ${items}
 --------------------------------------------------------------------------- */
 function write(name, content) {
   // Inject per-page canonical + og:url for HTML pages (no-op for other files).
+  // Cloudflare Pages serves clean (extensionless) URLs, so canonicals match that.
   if (content.includes("<!--CANONICAL-->")) {
-    const url = SITE.domain + "/" + (name === "index.html" ? "" : name);
+    const clean = name === "index.html" ? "" : name.replace(/\.html$/, "");
+    const url = SITE.domain + "/" + clean;
     content = content.replace(
       "<!--CANONICAL-->",
       `<link rel="canonical" href="${url}" />\n  <meta property="og:url" content="${url}" />`
@@ -1321,7 +1339,12 @@ for (let i = 0; i < ARTICLES.length; i++) {
   written.push(write(`${ARTICLES[i].slug}.html`, articlePage(ARTICLES[i], i)));
 }
 
-const urls = ["", ...written.filter((f) => f !== "404.html")];
+const urls = [
+  "",
+  ...written
+    .filter((f) => f !== "404.html" && f !== "index.html")
+    .map((f) => f.replace(/\.html$/, "")),
+];
 write("sitemap.xml", sitemap(urls));
 write("robots.txt", `User-agent: *\nAllow: /\nSitemap: ${SITE.domain}/sitemap.xml\n`);
 
